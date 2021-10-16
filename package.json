@@ -1,0 +1,15 @@
+{
+  "name": "wanatraining",
+  "version": "1.0.0",
+  "description": "Easier students fee calculator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^15.2.0",
+    "electron-packager": "^15.4.0"
+  }
+}
