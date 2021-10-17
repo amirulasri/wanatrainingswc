@@ -69,7 +69,7 @@
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#" onclick="selectmonth(7)">July</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(8)">Ogos</a></li>
+                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(8)">August</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#" onclick="selectmonth(9)">September</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
@@ -77,7 +77,7 @@
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#" onclick="selectmonth(11)">November</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(12)">Disember</a></li>
+                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(12)">December</a></li>
                         </ul>
                     </div>
                 </div>
@@ -164,11 +164,28 @@
                 </div>
                 <div class="modal-body">
                     Fees for every student displayed here, check it before continue <br>
-                    <div id="displayallfees2"></div>
-                    <button class="btn btn-primary" onclick="" data-bs-target="#modalfee" data-bs-toggle="modal"
-                    data-bs-dismiss="modal" style="width: 100%;">Next</button>
+                    <div id="tablefees"></div>
+                    <button class="btn btn-primary" onclick="checkstaffact()" data-bs-dismiss="modal" style="width: 100%;">Next</button>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="location.reload();">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal prompt staff act -->
+    <div class="modal fade" id="promptstaffact" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Charge for staff activities</h5>
+                </div>
+                <div class="modal-body">
+                    Because of total fees more than RM 2500, 10% will be deducted for staff activities 
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="finalprocess()" data-bs-dismiss="modal" style="width: 100%;">Yes</button>
                     <button type="button" class="btn btn-secondary" onclick="location.reload();">Cancel</button>
                 </div>
             </div>
@@ -182,33 +199,51 @@
     <script>
         let sidebar = document.querySelector(".sidebar");
         sidebar.classList.toggle("open");
+        const arraycodefees = [];
+        const arrayfeestudent = [];
+        var totalfees = 0;
+        var monthname = "";
+        var staffactfee = 0;
+        var staffprompt = new bootstrap.Modal(document.getElementById('promptstaffact'), options);
 
         function selectmonth(month) {
             document.getElementById("month").value = month;
             if (month == 1) {
                 document.getElementById("monthname1").innerHTML = "January";
+                monthname = "January";
             }else if (month == 2){
                 document.getElementById("monthname1").innerHTML = "February";
+                monthname = "February";
             }else if (month == 3){
                 document.getElementById("monthname1").innerHTML = "March";
+                monthname = "March";
             }else if (month == 4){
                 document.getElementById("monthname1").innerHTML = "April";
+                monthname = "April";
             }else if (month == 5){
                 document.getElementById("monthname1").innerHTML = "May";
+                monthname = "May";
             }else if (month == 6){
                 document.getElementById("monthname1").innerHTML = "Jun";
+                monthname = "Jun";
             }else if (month == 7){
                 document.getElementById("monthname1").innerHTML = "July";
+                monthname = "July";
             }else if (month == 8){
-                document.getElementById("monthname1").innerHTML = "Ogos";
+                document.getElementById("monthname1").innerHTML = "August";
+                monthname = "August";
             }else if (month == 9){
                 document.getElementById("monthname1").innerHTML = "September";
+                monthname = "September";
             }else if (month == 10){
                 document.getElementById("monthname1").innerHTML = "October";
+                monthname = "October";
             }else if (month == 11){
                 document.getElementById("monthname1").innerHTML = "November";
+                monthname = "November";
             }else if (month == 12){
-                document.getElementById("monthname1").innerHTML = "Disember";
+                document.getElementById("monthname1").innerHTML = "December";
+                monthname = "December";
             }
         }
 
@@ -259,8 +294,6 @@
 
         function calculatefees(){
             //GET ALL FEES VALUE AND PUT INTO ARRAY
-            const arraycodefees = [];
-            const arrayfeestudent = [];
             var feevalue;
             var noofstudentcheck = document.getElementById("noofstudent").value;
             for(i=0; i<noofstudentcheck; i++){
@@ -282,7 +315,27 @@
 
             //TOTAL ALL FEES
             for(i=0; i<noofstudentcheck; i++){
-                
+                totalfees += arrayfeestudent[i];
+            }
+
+            showallfees();
+        }
+
+        function showallfees(){
+            var noofstudentcheck = document.getElementById("inputnoofstudent").value;
+            var feesinterface = "<table class='table'><thead class='table-dark'><tr><th>Student Number</th><th>Fee</th></tr></thead><tbody class='table-hover table-striped table-primary'>";
+                for(i=0; i<noofstudentcheck; i++){
+                var studentlabelnumber2 = i+1;
+                feesinterface += "<tr><td>Student "+studentlabelnumber2+"</td><td>RM "+arrayfeestudent[i]+"</td> <tr>";
+            }
+            feesinterface += "</tbody></table>";
+            document.getElementById("tablefees").innerHTML = feesinterface;
+        }
+
+        function checkstaffact(){
+            if (totalfees > 2500){
+                staffactfee = (totalfees*(10/100));
+                staffprompt.show()
             }
         }
     </script>
