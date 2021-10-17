@@ -20,7 +20,7 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#newcalc">
+                <a href="#" onclick="startloader()" data-bs-toggle="modal" data-bs-target="#newcalc">
                     <i class="bi bi-plus-circle-fill"></i>
                     <span class="links_name">New calculation</span>
                 </a>
@@ -36,6 +36,14 @@
                 <i class='bx bx-log-out' id="log_out"></i>
             </li>
         </ul>
+    </div>
+    <div class="bg">
+        <div class="outerinterface">
+            <div class="interface" id="outputdata">
+                <h3 class="title">Welcome! to get started, click  New Calculation</h3>
+                <p>Created by Amirul Asri, Firdaus, Aisyah <br>From Group 2</p>
+            </div>
+        </div>
     </div>
     <!-- Modal get month -->
     <div class="modal fade" id="newcalc" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -69,7 +77,7 @@
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#" onclick="selectmonth(7)">July</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(8)">Ogos</a></li>
+                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(8)">August</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#" onclick="selectmonth(9)">September</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
@@ -77,7 +85,7 @@
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#" onclick="selectmonth(11)">November</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(12)">Disember</a></li>
+                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(12)">December</a></li>
                         </ul>
                     </div>
                 </div>
@@ -98,9 +106,11 @@
                 </div>
                 <div class="modal-body">
                     Enter number of student will be registered. At least 20 required for this month <br>
-                    <input type="number" id="inputnoofstudent" min="20" oninput="checkstudentno()" onchange="checkstudentno()" class="form-control"><br>
-                    <button class="btn btn-primary" onclick="getnumberofstudent()" id="buttonnoofstudentnext" data-bs-target="#modalfee" data-bs-toggle="modal"
-                    data-bs-dismiss="modal" style="width: 100%;" disabled>Next</button>
+                    <input type="number" id="inputnoofstudent" min="20" oninput="checkstudentno()"
+                        onchange="checkstudentno()" class="form-control"><br>
+                    <button class="btn btn-primary" onclick="getnumberofstudent()" id="buttonnoofstudentnext"
+                        data-bs-target="#modalfee" data-bs-toggle="modal" data-bs-dismiss="modal" style="width: 100%;"
+                        disabled>Next</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="location.reload();">Cancel</button>
@@ -145,8 +155,9 @@
                         </tbody>
                     </table><br>
                     <div id="tablecodeinput"></div>
-                    <button class="btn btn-primary" id="buttonprocess" data-bs-target="#displayallfees" data-bs-toggle="modal"
-                    data-bs-dismiss="modal" style="width: 100%;" disabled>Next</button>
+                    <button class="btn btn-primary" id="buttonprocess" onclick="calculatefees()"
+                        data-bs-target="#displayallfees" data-bs-toggle="modal" data-bs-dismiss="modal"
+                        style="width: 100%;" disabled>Next</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="location.reload();">Cancel</button>
@@ -164,11 +175,48 @@
                 </div>
                 <div class="modal-body">
                     Fees for every student displayed here, check it before continue <br>
-                    <button class="btn btn-primary" onclick="" data-bs-target="#modalfee" data-bs-toggle="modal"
-                    data-bs-dismiss="modal" style="width: 100%;">Next</button>
+                    <div id="tablefees"></div>
+                    <button class="btn btn-primary" onclick="checkstaffact()" data-bs-dismiss="modal"
+                        style="width: 100%;">Next</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="location.reload();">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal prompt staff act -->
+    <div class="modal fade" id="promptstaffact" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Charge for staff activities</h5>
+                </div>
+                <div class="modal-body">
+                    Because of total fees more than RM2500, 10% will be deducted for staff activities. Do you want to
+                    continue?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="finalprocess()" data-bs-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.reload();">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal prompt staff act -->
+    <div class="modal fade" id="showallstudentfees" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fee each students</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="outputallstudentfee"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -181,79 +229,186 @@
     <script>
         let sidebar = document.querySelector(".sidebar");
         sidebar.classList.toggle("open");
+        const arraycodefees = [];
+        const arrayfeestudent = [];
+        var totalfees = 0;
+        var monthname = "";
+        var staffactfee = 0;
+        var staffprompt = new bootstrap.Modal(document.getElementById('promptstaffact'));
 
         function selectmonth(month) {
             document.getElementById("month").value = month;
             if (month == 1) {
                 document.getElementById("monthname1").innerHTML = "January";
-            }else if (month == 2){
+                monthname = "January";
+            } else if (month == 2) {
                 document.getElementById("monthname1").innerHTML = "February";
-            }else if (month == 3){
+                monthname = "February";
+            } else if (month == 3) {
                 document.getElementById("monthname1").innerHTML = "March";
-            }else if (month == 4){
+                monthname = "March";
+            } else if (month == 4) {
                 document.getElementById("monthname1").innerHTML = "April";
-            }else if (month == 5){
+                monthname = "April";
+            } else if (month == 5) {
                 document.getElementById("monthname1").innerHTML = "May";
-            }else if (month == 6){
+                monthname = "May";
+            } else if (month == 6) {
                 document.getElementById("monthname1").innerHTML = "Jun";
-            }else if (month == 7){
+                monthname = "Jun";
+            } else if (month == 7) {
                 document.getElementById("monthname1").innerHTML = "July";
-            }else if (month == 8){
-                document.getElementById("monthname1").innerHTML = "Ogos";
-            }else if (month == 9){
+                monthname = "July";
+            } else if (month == 8) {
+                document.getElementById("monthname1").innerHTML = "August";
+                monthname = "August";
+            } else if (month == 9) {
                 document.getElementById("monthname1").innerHTML = "September";
-            }else if (month == 10){
+                monthname = "September";
+            } else if (month == 10) {
                 document.getElementById("monthname1").innerHTML = "October";
-            }else if (month == 11){
+                monthname = "October";
+            } else if (month == 11) {
                 document.getElementById("monthname1").innerHTML = "November";
-            }else if (month == 12){
-                document.getElementById("monthname1").innerHTML = "Disember";
+                monthname = "November";
+            } else if (month == 12) {
+                document.getElementById("monthname1").innerHTML = "December";
+                monthname = "December";
             }
         }
 
-        function getnumberofstudent(){
+        function getnumberofstudent() {
             var noofstudent = document.getElementById("inputnoofstudent").value;
-            if(noofstudent >= 20){
+            if (noofstudent >= 20) {
                 document.getElementById("noofstudent").value = noofstudent;
                 createfieldstudentcode(noofstudent);
             }
         }
 
-        function createfieldstudentcode(noofstudent){
+        function createfieldstudentcode(noofstudent) {
             var inputcode = "<table class='table'><thead class='table-dark'><tr><th>Student Number</th><th>Course Code</th></tr></thead><tbody class='table-hover table-primary'>";
-            for(i=0; i<noofstudent; i++){
-                var studentlabelnumber = i+1;
-                inputcode += "<tr><td>Student "+studentlabelnumber+"</td><td><select class='form-control' id='arraystudentcode"+i+"' onchange='checkfieldcode()'><option value='' disabled selected>-Course code-</option><option value='1'>1 - Java Programming</option><option value='2'>2 - MS Office</option><option value='3'>3 - Autocad</option></select></td> <tr>";
+            for (i = 0; i < noofstudent; i++) {
+                var studentlabelnumber = i + 1;
+                inputcode += "<tr><td>Student " + studentlabelnumber + "</td><td><select class='form-control' id='arraystudentcode" + i + "' onchange='checkfieldcode()'><option value='' disabled selected>-Course code-</option><option value='1'>1 - Java Programming</option><option value='2'>2 - MS Office</option><option value='3'>3 - Autocad</option></select></td> <tr>";
             }
             inputcode += "</tbody></table>";
             document.getElementById("tablecodeinput").innerHTML = inputcode;
         }
 
-        function checkstudentno(){
+        function checkstudentno() {
             var noofstudentcheck = document.getElementById("inputnoofstudent").value;
-            if(noofstudentcheck >= 20){
+            if (noofstudentcheck >= 20) {
                 document.getElementById("buttonnoofstudentnext").disabled = false;
-            }else{
+            } else {
                 document.getElementById("buttonnoofstudentnext").disabled = true;
             }
         }
 
-        function checkfieldcode(){
-            noofstudentcheck = document.getElementById("noofstudent").value;
+        function checkfieldcode() {
+            var noofstudentcheck = document.getElementById("noofstudent").value;
             var allowbuttonprocess = false;
             var arraystudentcode = "";
-            for(i=0; i<noofstudentcheck; i++){
-                arraystudentcode = document.getElementById("arraystudentcode"+i).value;
-                if(arraystudentcode == '1' || arraystudentcode == '2' || arraystudentcode == '3'){
+            for (i = 0; i < noofstudentcheck; i++) {
+                arraystudentcode = document.getElementById("arraystudentcode" + i).value;
+                if (arraystudentcode == '1' || arraystudentcode == '2' || arraystudentcode == '3') {
                     allowbuttonprocess = true;
-                }else{
+                } else {
                     allowbuttonprocess = false;
                     break;
                 }
             }
-            if(allowbuttonprocess == true){
+            if (allowbuttonprocess == true) {
                 document.getElementById('buttonprocess').disabled = false;
             }
+        }
+
+        function calculatefees() {
+            //GET ALL FEES VALUE AND PUT INTO ARRAY
+            var feevalue;
+            var noofstudentcheck = document.getElementById("noofstudent").value;
+            for (i = 0; i < noofstudentcheck; i++) {
+                var getcodearray = document.getElementById("arraystudentcode" + i).value;
+                arraycodefees.push(getcodearray);
+            }
+
+            //CALCULATE FEES FOR EACH STUDENT
+            for (i = 0; i < noofstudentcheck; i++) {
+                if (arraycodefees[i] == 1) {
+                    feevalue = 200.00;
+                } else if (arraycodefees[i] == 2) {
+                    feevalue = 150.00;
+                } else if (arraycodefees[i] == 3) {
+                    feevalue = 100.00;
+                }
+                arrayfeestudent.push(feevalue);
+            }
+
+            //TOTAL ALL FEES
+            for (i = 0; i < noofstudentcheck; i++) {
+                totalfees += arrayfeestudent[i];
+            }
+
+            showallfees();
+        }
+
+        function showallfees() {
+            var noofstudentcheck = document.getElementById("inputnoofstudent").value;
+            var feesinterface = "<table class='table'><thead class='table-dark'><tr><th>Student Number</th><th>Fee</th></tr></thead><tbody class='table-hover table-striped table-primary'>";
+            for (i = 0; i < noofstudentcheck; i++) {
+                var studentlabelnumber2 = i + 1;
+                feesinterface += "<tr><td>Student " + studentlabelnumber2 + "</td><td>RM " + arrayfeestudent[i] + "</td> <tr>";
+            }
+            feesinterface += "</tbody></table>";
+            document.getElementById("tablefees").innerHTML = feesinterface;
+        }
+
+        function checkstaffact() {
+            if (totalfees > 2500) {
+                staffactfee = Math.round((totalfees * (10 / 100)) * 100) / 100;
+                staffprompt.show();
+            } else {
+                finalprocess();
+            }
+        }
+
+        function startloader(){
+            document.getElementById("outputdata").innerHTML = '<div class="spinner-border" role="status"></div>';
+        }
+
+        function finalprocess() {
+            var noofstudent = document.getElementById("noofstudent").value;
+            var staffcharge;
+            if(staffactfee > 0){
+                staffcharge = "10% (RM"+staffactfee+")";
+            }else{
+                staffcharge = "Not charged";
+            }
+            var nettotal = totalfees - staffactfee;
+            document.getElementById("outputdata").innerHTML = "<div class='interfacetitle'><h1 class='title'>"+monthname+"<h1></div><table style='height: 320px !important; font-size: 18px;' class='table'><thead class='table-dark'><tr><th colspan='2'>Details of fees for the month: "+monthname+"</th></tr></thead><tbody><tr class='table-primary'><td>Number of students: </td><td>"+noofstudent+" <button class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#showallstudentfees'>Show per each</button></td></tr><tr class='table-info'><td>Total fees: </td><td>RM "+totalfees+"</td></tr><tr class='table-warning'><td>Staff activities charge:</td><td>"+staffcharge+"</td></tr><tr class='table-success'><td>Net total:</td><td>RM "+nettotal+"</td></tr></tbody></table>";
+            var noofstudentcheck = document.getElementById("inputnoofstudent").value;
+            var feesinterface = "<table class='table'><thead class='table-dark'><tr><th>Student Number</th><th>Course</th><th>Fee</th></tr></thead><tbody class='table-hover table-striped table-info'>";
+            for (i = 0; i < noofstudentcheck; i++) {
+                var studentlabelnumber2 = i + 1;
+                var selectedcourse = "";
+                if(arraycodefees[i] == 1){
+                    selectedcourse = "Java Programming";
+                }else if (arraycodefees[i] == 2){
+                    selectedcourse = "MS Office";
+                }else if (arraycodefees[i] == 3){
+                    selectedcourse = "Autocad";
+                }
+                feesinterface += "<tr><td>Student " + studentlabelnumber2 + "</td><td>"+selectedcourse+"</td><td>RM " + arrayfeestudent[i] + "</td> <tr>";
+            }
+            feesinterface += "</tbody></table>";
+            document.getElementById("outputallstudentfee").innerHTML = feesinterface;
+
+            resetall();
+        }
+
+        function resetall(){
+            document.getElementById('buttonprocess').disabled = true;
+            document.getElementById("buttonnoofstudentnext").disabled = true;
+            document.getElementById("inputnoofstudent").value = '';
         }
     </script>
 </body>
