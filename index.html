@@ -40,7 +40,7 @@
     <div class="bg">
         <div class="outerinterface">
             <div class="interface" id="outputdata">
-                <h3 class="title">Welcome! to get started click  New Calculation</h3>
+                <h3 class="title">Welcome! to get started, click  New Calculation</h3>
             </div>
         </div>
     </div>
@@ -346,7 +346,7 @@
 
         function checkstaffact() {
             if (totalfees > 2500) {
-                staffactfee = (totalfees * (10 / 100));
+                staffactfee = Math.round((totalfees * (10 / 100)) * 100) / 100;
                 staffprompt.show();
             } else {
                 finalprocess();
@@ -358,7 +358,15 @@
         }
 
         function finalprocess() {
-
+            var noofstudent = document.getElementById("noofstudent").value;
+            var staffcharge;
+            if(staffactfee > 0){
+                staffcharge = "10% (RM"+staffactfee+")";
+            }else{
+                staffcharge = "Not charged";
+            }
+            var nettotal = totalfees - staffactfee;
+            document.getElementById("outputdata").innerHTML = "<table class='table table-lg'><thead><tr><th>"+monthname+"</th></tr></thead><tbody><tr><td>Number of students: </td><td>"+noofstudent+" <button class='btn btn-primary btn-sm'>Show per each</button></td></tr><tr><td>Total fees: </td><td>RM "+totalfees+"</td></tr><tr><td>Staff activities charge:</td><td>"+staffcharge+"</td></tr><tr><td>Net total:</td><td>RM "+nettotal+"</td></tr></tbody></table>";
         }
     </script>
 </body>
