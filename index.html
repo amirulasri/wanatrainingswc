@@ -203,6 +203,23 @@
             </div>
         </div>
     </div>
+    <!-- Modal prompt staff act -->
+    <div class="modal fade" id="showallstudentfees" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fee each students</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="outputallstudentfee"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <input type="hidden" id="month">
     <input type="hidden" id="noofstudent">
     <input type="hidden" id="arrayfeestudent">
@@ -366,7 +383,31 @@
                 staffcharge = "Not charged";
             }
             var nettotal = totalfees - staffactfee;
-            document.getElementById("outputdata").innerHTML = "<table class='table table-lg'><thead><tr><th>"+monthname+"</th></tr></thead><tbody><tr><td>Number of students: </td><td>"+noofstudent+" <button class='btn btn-primary btn-sm'>Show per each</button></td></tr><tr><td>Total fees: </td><td>RM "+totalfees+"</td></tr><tr><td>Staff activities charge:</td><td>"+staffcharge+"</td></tr><tr><td>Net total:</td><td>RM "+nettotal+"</td></tr></tbody></table>";
+            document.getElementById("outputdata").innerHTML = "<div class='interfacetitle'><h1 class='title'>"+monthname+"<h1></div><table style='height: 320px !important; font-size: 18px;' class='table'><thead class='table-dark'><tr><th colspan='2'>Details of fees for the month: "+monthname+"</th></tr></thead><tbody><tr class='table-primary'><td>Number of students: </td><td>"+noofstudent+" <button class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#showallstudentfees'>Show per each</button></td></tr><tr class='table-info'><td>Total fees: </td><td>RM "+totalfees+"</td></tr><tr class='table-warning'><td>Staff activities charge:</td><td>"+staffcharge+"</td></tr><tr class='table-success'><td>Net total:</td><td>RM "+nettotal+"</td></tr></tbody></table>";
+            var noofstudentcheck = document.getElementById("inputnoofstudent").value;
+            var feesinterface = "<table class='table'><thead class='table-dark'><tr><th>Student Number</th><th>Course</th><th>Fee</th></tr></thead><tbody class='table-hover table-striped table-info'>";
+            for (i = 0; i < noofstudentcheck; i++) {
+                var studentlabelnumber2 = i + 1;
+                var selectedcourse = "";
+                if(arraycodefees[i] == 1){
+                    selectedcourse = "Java Programming";
+                }else if (arraycodefees[i] == 2){
+                    selectedcourse = "MS Office";
+                }else if (arraycodefees[i] == 3){
+                    selectedcourse = "Autocad";
+                }
+                feesinterface += "<tr><td>Student " + studentlabelnumber2 + "</td><td>"+selectedcourse+"</td><td>RM " + arrayfeestudent[i] + "</td> <tr>";
+            }
+            feesinterface += "</tbody></table>";
+            document.getElementById("outputallstudentfee").innerHTML = feesinterface;
+
+            resetall();
+        }
+
+        function resetall(){
+            document.getElementById('buttonprocess').disabled = true;
+            document.getElementById("buttonnoofstudentnext").disabled = true;
+            document.getElementById("inputnoofstudent").value = '';
         }
     </script>
 </body>
