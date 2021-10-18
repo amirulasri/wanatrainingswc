@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wana Training Center</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -20,8 +19,8 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="#" onclick="startloader()" data-bs-toggle="modal" data-bs-target="#newcalc">
-                    <i class="bi bi-plus-circle-fill"></i>
+                <a onclick="startloader()" data-bs-toggle="modal" data-bs-target="#newcalc">
+                    <i>+</i>
                     <span class="links_name">New calculation</span>
                 </a>
                 <span class="tooltip">New calculation</span>
@@ -29,7 +28,7 @@
             <li class="profile">
                 <div class="profile-details">
                     <div class="name_job">
-                        <div class="name">Amirul Asri, Aisyah, Firdaus</div>
+                        <div class="name">Amirul Asri, Firdaus, Aisyah</div>
                         <div class="job">Developer</div>
                     </div>
                 </div>
@@ -40,7 +39,7 @@
     <div class="bg">
         <div class="outerinterface">
             <div class="interface" id="outputdata">
-                <h3 class="title">Welcome! to get started, click  New Calculation</h3>
+                <h3 class="title">Welcome! to get started, click New Calculation</h3>
                 <p>Created by Amirul Asri, Firdaus, Aisyah <br>From Group 2</p>
             </div>
         </div>
@@ -56,36 +55,36 @@
                 <div class="modal-body">
                     Select month to make a calculation <br>
                     <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        <a class="btn btn-primary dropdown-toggle" role="button" id="dropdownMenuLink"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Month
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(1)">January</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(1)">January</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(2)">February</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(2)">February</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(3)">March</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(3)">March</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(4)">April</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(4)">April</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(5)">May</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(5)">May</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(6)">Jun</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(6)">Jun</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(7)">July</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(7)">July</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(8)">August</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(8)">August</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(9)">September</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(9)">September</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(10)">October</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(10)">October</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(11)">November</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(11)">November</a></li>
                             <li><a class="dropdown-item" data-bs-target="#noofstudents" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#" onclick="selectmonth(12)">December</a></li>
+                                    data-bs-dismiss="modal" onclick="selectmonth(12)">December</a></li>
                         </ul>
                     </div>
                 </div>
@@ -229,8 +228,8 @@
     <script>
         let sidebar = document.querySelector(".sidebar");
         sidebar.classList.toggle("open");
-        const arraycodefees = [];
-        const arrayfeestudent = [];
+        var arraycodefees = [];
+        var arrayfeestudent = [];
         var totalfees = 0;
         var monthname = "";
         var staffactfee = 0;
@@ -371,33 +370,33 @@
             }
         }
 
-        function startloader(){
+        function startloader() {
             document.getElementById("outputdata").innerHTML = '<div class="spinner-border" role="status"></div>';
         }
 
         function finalprocess() {
             var noofstudent = document.getElementById("noofstudent").value;
             var staffcharge;
-            if(staffactfee > 0){
-                staffcharge = "10% (RM"+staffactfee+")";
-            }else{
+            if (staffactfee > 0) {
+                staffcharge = "10% (RM" + staffactfee + ")";
+            } else {
                 staffcharge = "Not charged";
             }
             var nettotal = totalfees - staffactfee;
-            document.getElementById("outputdata").innerHTML = "<div class='interfacetitle'><h1 class='title'>"+monthname+"<h1></div><table style='height: 320px !important; font-size: 18px;' class='table'><thead class='table-dark'><tr><th colspan='2'>Details of fees for the month: "+monthname+"</th></tr></thead><tbody><tr class='table-primary'><td>Number of students: </td><td>"+noofstudent+" <button class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#showallstudentfees'>Show per each</button></td></tr><tr class='table-info'><td>Total fees: </td><td>RM "+totalfees+"</td></tr><tr class='table-warning'><td>Staff activities charge:</td><td>"+staffcharge+"</td></tr><tr class='table-success'><td>Net total:</td><td>RM "+nettotal+"</td></tr></tbody></table>";
+            document.getElementById("outputdata").innerHTML = "<div class='interfacetitle'><h1 class='title'>" + monthname + "<h1></div><table style='height: 320px !important; font-size: 18px;' class='table'><thead class='table-dark'><tr><th colspan='2'>Details of fees for the month: " + monthname + "</th></tr></thead><tbody><tr class='table-primary'><td>Number of students: </td><td>" + noofstudent + " <button class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#showallstudentfees'>Show per each</button></td></tr><tr class='table-info'><td>Total fees: </td><td>RM " + totalfees + "</td></tr><tr class='table-warning'><td>Staff activities charge:</td><td>" + staffcharge + "</td></tr><tr class='table-success'><td>Net total:</td><td>RM " + nettotal + "</td></tr></tbody></table>";
             var noofstudentcheck = document.getElementById("inputnoofstudent").value;
             var feesinterface = "<table class='table'><thead class='table-dark'><tr><th>Student Number</th><th>Course</th><th>Fee</th></tr></thead><tbody class='table-hover table-striped table-info'>";
             for (i = 0; i < noofstudentcheck; i++) {
                 var studentlabelnumber2 = i + 1;
                 var selectedcourse = "";
-                if(arraycodefees[i] == 1){
+                if (arraycodefees[i] == 1) {
                     selectedcourse = "Java Programming";
-                }else if (arraycodefees[i] == 2){
+                } else if (arraycodefees[i] == 2) {
                     selectedcourse = "MS Office";
-                }else if (arraycodefees[i] == 3){
+                } else if (arraycodefees[i] == 3) {
                     selectedcourse = "Autocad";
                 }
-                feesinterface += "<tr><td>Student " + studentlabelnumber2 + "</td><td>"+selectedcourse+"</td><td>RM " + arrayfeestudent[i] + "</td> <tr>";
+                feesinterface += "<tr><td>Student " + studentlabelnumber2 + "</td><td>" + selectedcourse + "</td><td>RM " + arrayfeestudent[i] + "</td> <tr>";
             }
             feesinterface += "</tbody></table>";
             document.getElementById("outputallstudentfee").innerHTML = feesinterface;
@@ -405,10 +404,15 @@
             resetall();
         }
 
-        function resetall(){
+        function resetall() {
             document.getElementById('buttonprocess').disabled = true;
             document.getElementById("buttonnoofstudentnext").disabled = true;
             document.getElementById("inputnoofstudent").value = '';
+            arraycodefees = [];
+            arrayfeestudent = [];
+            totalfees = 0;
+            monthname = "";
+            staffactfee = 0;
         }
     </script>
 </body>

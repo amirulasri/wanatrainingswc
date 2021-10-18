@@ -4,7 +4,7 @@
   "description": "Easier students fee calculator",
   "main": "main.js",
   "scripts": {
-    "start": "electron-packager ."
+    "start": "electron-packager . --icon=./wanaicon.ico"
   },
   "author": "",
   "license": "ISC",
